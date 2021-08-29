@@ -5,12 +5,15 @@ function R = MultiLayerReflect(lambda,theta0,n,d)
 % The unit of wavelength and thickness is nm
 % The output parameter R is the reflection of the multilayer sysmtem.
 
-    d = d/10^9;
+    d = d/10^9; 
     lambda = lambda/10^9;
     theta = zeros(length(n),1);
     theta(1) = theta0;
     for ii = 2:length(n)
-        theta(ii) = asin(n(1)/n(ii)*sin(theta(1)));
+        theta(ii) = asin(n(1)/n(ii)*sin(theta(1)));   
+        % Calculating the angle of reflection of each layer by Fresnell's law.
+        % Note: Use the incident Angle of the first layer, otherwise it is easy 
+        % to oscillate due to data overflow during calculation.
     end
     M = [1 0;0 1];
     temp_M = M;
